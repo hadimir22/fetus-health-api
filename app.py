@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 import pickle
-import numpy as np
 
 
 app = Flask(__name__)
@@ -20,6 +19,9 @@ def predict():
 		print(NameError)
 		return 'something went wrong'
 
+@app.errorhandler(404)
+def resource_not_found(e):
+    return jsonify(error='The requested URL was not found on the server'), 404
 
 if __name__ == "__main__":
 	app.run(host ='0.0.0.0', port = 5000, debug = True)
